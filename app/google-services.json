@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "130209796443",
+    "project_id": "ipt-ni",
+    "storage_bucket": "ipt-ni.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130209796443:android:b1fdcf9d752b8f6cd8ca7e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJIiSmTp-ZfqCrILqDpycxov21WSGHBD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

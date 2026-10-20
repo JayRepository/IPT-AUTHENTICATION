@@ -22,7 +22,17 @@
         android:layout_height="52dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/bg_button_gradient"
-        android:text="@string/go_back"
+        android:text="Go Back"
+        android:textColor="@color/text_white"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_button_gradient"
+        android:text="Logout"
         android:textColor="@color/text_white"
         android:textAllCaps="false" />
 

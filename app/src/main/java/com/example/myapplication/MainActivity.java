@@ -13,14 +13,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean isPasswordVisible = false;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
 
         EditText emailInput = findViewById(R.id.emailInput);
         EditText passInput = findViewById(R.id.passInput);
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         TextView signUpText = findViewById(R.id.signUpText);
         Button superButton = findViewById(R.id.superButton);
 
-        // BUTTON 1: superButton -> opens SecondActivity (Intent)
+        // superButton -> opens SecondActivity
         superButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // BUTTON 2: loginButton -> checks the fields and shows a message
+        // loginButton -> Firebase login
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,15 +54,27 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,
                             "Please enter your email and password",
                             Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "Login successful!",
-                            Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this,
+                                        "Login successful!",
+                                        Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this,
+                                        "Login failed: " + task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
             }
         });
 
-        // BUTTON 3: eye icon -> show / hide the password
+        // eye icon -> show / hide the password
         togglePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // BUTTON 4: Sign Up -> shows a message
+        // Sign Up -> opens the register screen
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        "Sign Up clicked",
-                        Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
     }
